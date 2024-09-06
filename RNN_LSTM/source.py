@@ -73,29 +73,30 @@ print(f"Test data size: {len(test_data)}")
 
 #<-------------------------------------------------Neural Network Model---------------------------------------------------------->
 
-class NeuralLM(nn.Module):
+class NeuralLM(nn.Module): #https://cnvrg.io/pytorch-lstm/
     def __init__(self, emb_dim, hidden_size, vocab_size, pretrained_embeddings, num_layers=1):
         super(NeuralLM, self).__init__()
+        self.emb_dim = emb_dim
         self.hidden_size = hidden_size
+        self.vocab_size = vocab_size
         self.num_layers = num_layers
         self.embeddings = nn.Embedding.from_pretrained(torch.tensor(pretrained_embeddings), freeze=True)
         
         # LSTM layer
         self.lstm = nn.LSTM(emb_dim, hidden_size, num_layers=num_layers, batch_first=True)
         self.act_fn = nn.ReLU()
-        self.dense_layer = nn.Linear(hidden_size, 128)
+        self.dense_layer = nn.Linear(hidden_size, 128) #https://stackoverflow.com/questions/61149523/understanding-the-structure-of-my-lstm-model
         # Output layer
         self.class_layer = nn.Linear(128, vocab_size)
 
     def forward(self, inp):
+        
         embedded = self.embeddings(inp)
-
+        
         lstm_out, _ = self.lstm(embedded)
         lstm_out = lstm_out.contiguous().view(-1, self.hidden_size)
-        
         # Apply dense layer and activation
         dense_out = self.act_fn(self.dense_layer(self.act_fn(lstm_out)))
-        
         # Final output layer
         logits = self.class_layer(dense_out)
         

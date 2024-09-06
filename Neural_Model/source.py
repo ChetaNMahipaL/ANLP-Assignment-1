@@ -67,24 +67,24 @@ print(f"Training data size: {len(train_data)}")
 print(f"Validation data size: {len(validation_data)}")
 print(f"Test data size: {len(test_data)}")
 
-
-
-
 #<-------------------------------------------------Neural Network Model---------------------------------------------------------->
 
 class NeuralLM(nn.Module):
     def __init__(self, emb_dim, hidden_size, context_size, vocab_size, pretrained_embeddings):
         super(NeuralLM, self).__init__()
+        self.emb_dim = emb_dim
+        self.hidden_size = hidden_size
+        self.context_size = context_size
+        self.vocab_size = vocab_size
         self.embeddings = nn.Embedding.from_pretrained(torch.tensor(pretrained_embeddings), freeze=True)
-
-        self.l1 = torch.nn.Linear(context_size * emb_dim, hidden_size)
+        #Model Layers
+        self.l1 = torch.nn.Linear(self.context_size * self.emb_dim, self.hidden_size)
         self.a1 = torch.nn.Tanh()
-        self.l2 = torch.nn.Linear(hidden_size, vocab_size)
+        self.l2 = torch.nn.Linear(self.hidden_size, self.vocab_size)
 
     def forward(self, inp):
-        # Lookup embeddings using word indices
+        #Prepairing Embeddings
         inp = self.embeddings(inp)
-        
         inp = inp.view(inp.size(1), -1) 
         # print(inp.shape)
         
