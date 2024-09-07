@@ -1,0 +1,16 @@
+Training with Dropout=0.1, Dimension=100, Optimizer=Adam, Learning Rate=0.001
+Final Test Perplexity: 676.5652088388453
+==================================================
+Training with Dropout=0.3, Dimension=200, Optimizer=Adam, Learning Rate=0.001
+Final Test Perplexity: 634.814363114339
+==================================================
+Training with Dropout=0.1, Dimension=300, Optimizer=SGD, Learning Rate=0.001
+Final Test Perplexity: 697.0248020217313
+==================================================
+Training with Dropout=0.3, Dimension=100, Optimizer=SGD, Learning Rate=0.01
+Final Test Perplexity: 427.5904365596196
+==================================================
+Training with Dropout=0.5, Dimension=200, Optimizer=Adam, Learning Rate=0.001
+Final Test Perplexity: 617.6763519939896
+==================================================
+Optimal Hyperparameters: Dropout=0.3, Dimension=100, Optimizer=SGD, Learning Rate=0.01
