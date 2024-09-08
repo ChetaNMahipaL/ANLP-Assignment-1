@@ -155,7 +155,7 @@ pretrained_embeddings = word2vec_model.wv.vectors
 model = NeuralLM(100, 300, N_Gram, len(word_to_ind), pretrained_embeddings,dropout_rate=0.3)
 model.to(device)
 
-num_epochs = 5
+num_epochs = 10
 learning_rate = 0.01
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=learning_rate)
