@@ -136,8 +136,8 @@ def prepare_data(sentences, word_to_index, max_len=None):
     for sentence in sentences:
         word_indices = words_to_indices(sentence, word_to_index)
         
-        if max_len is not None:
-            word_indices = word_indices[:max_len]
+        # if max_len is not None:
+        #     word_indices = word_indices[:max_len]
         
         all_indices.extend(word_indices)
     
